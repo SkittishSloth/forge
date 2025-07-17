@@ -3,6 +3,7 @@ from typing import Optional
 
 import os
 import typer
+import subprocess
 from typing_extensions import Annotated
 
 app = typer.Typer()
@@ -41,3 +42,8 @@ def project(
     # Create a simple README.md file
     readme_path = project_path / "README.md"
     readme_path.write_text(f"# {name}\n")
+
+    # Initialize git repository if requested
+    if git:
+        print("Initializing git repository...")
+        subprocess.run(["git", "init"], cwd=project_path, check=True)
